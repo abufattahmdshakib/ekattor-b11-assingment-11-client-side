@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef } from "react";
-import { AuthContext } from "../../Context/AuthContext";
+import { AuthContext } from "../Provider/AuthProvider";
+// import { AuthContext } from "../../Context/AuthContext";
 
 const axiosInstance = axios.create({
-  baseURL: "https://uddog-server.vercel.app/",
+  baseURL: "http://localhost:3000/",
 });
 
 const useAxiosSecure = () => {

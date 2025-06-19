@@ -1,120 +1,102 @@
-import React, { use } from "react";
-import Swal from "sweetalert2";
-import { toast, ToastContainer } from "react-toastify";
-import { Link, useNavigate } from "react-router";
-import { AuthContext } from "../../Context/AuthContext";
+import React from 'react';
+import { use } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { useState } from 'react';
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { updateProfile } from "firebase/auth";
 
-const SignUp = () => {
-  const { user, setUser, signUpUser, updateUser } = use(AuthContext);
-  const Navigate = useNavigate();
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const photo = e.target.photo.value;
-    const password = e.target.password.value;
-    const userData = { name, email, photo, password };
-    console.log(userData);
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
-    if (!passwordRegex.test(password)) {
-      toast.error(
-        "Must be more than 6 characters, including, At least one number, At least one lowercase letter, At least one uppercase letter"
-      );
-      return;
-    }
-    signUpUser(email, password)
-      .then((result) => {
-        console.log(result);
-        Navigate("/");
-        fetch("https://uddog-server.vercel.app/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, photo }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            if (data.insertedId) {
-              Swal.fire({
-                title: "Account Created Successfully!",
-                icon: "success",
-                draggable: true,
-              });
-            }
-          });
-        updateUser({ displayName: name, photoURL: photo })
-          .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photo });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  };
-  return (
-    <div className="hero bg-purple-400 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">Sign Up now!</h1>
+
+const SingUp = () => {
+    const { createUser, setUser } = use(AuthContext)
+    const [showPass, setShowpass] = useState(false);
+    const navigate = useNavigate()
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Password',
+                text: 'The password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long',
+            });
+            return;
+        }
+
+        createUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                updateProfile(user, {
+                    displayName: name,
+                    photoURL: photo,
+                }).then(() => {
+                    setUser({
+                        ...user,
+                        displayName: name,
+                        photoURL: photo,
+                    });
+                    sweetAlart();
+                    navigate("/");
+                }).catch((error) => {
+                    console.error("Profile update failed:", error.message);
+                });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage, errorCode);
+            });
+
+    };
+    const sweetAlart = () => {
+        Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Successfully Registered",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    };
+    return (
+        <div className="hero bg-base-100">
+            
+            <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
+                <div className="card-body">
+                    <h1 className='text-2xl text-blue-950 font-bold text-center'>Register your account</h1>
+                    <form onSubmit={handleRegister}>
+                        <fieldset className="fieldset">
+                            <label className="label text-blue-950 font-bold">Your Name</label>
+                            <input name='name' type="text" className="input" placeholder="Enter your name" required />
+                            <label className="label text-blue-950 font-bold">Photo URL</label>
+                            <input name='photo' type="text" className="input" placeholder="Enter your Photo URL" required />
+                            <label className="label text-blue-950 font-bold">Email address</label>
+                            <input name='email' type="email" className="input" placeholder="Enter your email address" required />
+                            <label className="label text-blue-950 font-bold">Password</label>
+                            <div className='relative'>
+                                <input name='password' type={showPass ? "text" : "password"} className="input" placeholder="Enter your password" required />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowpass(!showPass)}
+                                    className='absolute top-[14px] right-6'>
+                                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+                            <div className='mt-3'><input type="checkbox" className="checkbox checkbox-xs text-blue-950 font-bold" required /> <a className="link link-hover ml-1 text-blue-950 font-bold">Accept Term & Conditions</a></div>
+                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">Register</button>
+                        </fieldset>
+                        <p className='mt-5 text-blue-950 font-bold'>Allready Have An Account ?<span className='text-red-600 font-medium hover:underline'><Link to='/auth/signIn'>Login</Link></span></p>
+                    </form>
+                </div>
             </div>
-            <form onSubmit={handleSignUp} className="fieldset">
-              <label className="label">Name</label>
-              <input
-                type="name"
-                name="name"
-                className="input"
-                placeholder="Enter Your Name"
-                required
-              />
-              <label className="label">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="input"
-                placeholder="mail@site.com"
-                required
-              />
-              <label className="label">Photo Url</label>
-              <input
-                type="url"
-                name="photo"
-                className="input"
-                placeholder="Enter Your Photo Url"
-                required
-              />
-              <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Enter Your Password"
-                required
-              />
-              <button className="relative inline-block px-4 py-2 font-medium group">
-            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#129ee7] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-            <span className="absolute inset-0 w-full h-full bg-white border-2 border-[#129ee7] group-hover:bg-[#129ee7]"></span>
-            <span className="relative text-black group-hover:text-white">
-              Sign Up
-            </span>
-          </button>
-              <p>
-                Already Have An Account? <Link to="/auth/signIn">Login</Link>
-              </p>
-            </form>
-          </div>
         </div>
-      </div>
-      <ToastContainer />
-    </div>
-  );
+    );
 };
 
-export default SignUp;
+export default SingUp;

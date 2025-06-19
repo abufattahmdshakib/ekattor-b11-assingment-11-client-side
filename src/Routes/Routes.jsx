@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
       {
         path: "/upcoming-event",
         Component: UpcomingEvent,
-        loader: () => fetch("https://uddog-server.vercel.app/event-Data/upcoming"),
+        loader: () => fetch("http://localhost:3000/event-Data/upcoming"),
       },
       {
         path: "/contact",
@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://uddog-server.vercel.app/event-Data/${params.id}`),
+          fetch(`http://localhost:3000/event-Data/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>
       },
       {

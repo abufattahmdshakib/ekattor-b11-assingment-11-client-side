@@ -1,17 +1,17 @@
 import React, { use, useState } from "react";
 import Swal from "sweetalert2";
-
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { useLoaderData, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import useAxiosSecure from "../Hooks/UseAxiosSecure";
 import { AuthContext } from "../Provider/AuthProvider";
 
-const UpdateEvent = () => {
-  const { _id, groupName, Description, category, location, photo } =
-    useLoaderData();
+
+const CreateEvent = () => {
   const [startDate, setStartDate] = useState(new Date());
   <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />;
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const { user } = use(AuthContext);
   const handleCreateUsers = (e) => {
@@ -20,26 +20,18 @@ const UpdateEvent = () => {
     const formData = new FormData(form);
     const groupData = Object.fromEntries(formData.entries());
     console.log(groupData);
-    fetch(`http://localhost:3000/event-Data/${_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(groupData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount) {
-          Swal.fire({
-            title: "Successfully Event Updated!",
-            icon: "success",
-            draggable: true,
-          });
-          form.reset();
-          navigate("/manage-event");
-        }
-      });
+    axiosSecure.post("event-Data", groupData).then((data) => {
+      console.log(data.data);
+      if (data.data.insertedId) {
+        Swal.fire({
+          title: "Successfully Event Created!",
+          icon: "success",
+          draggable: true,
+        });
+        form.reset();
+        navigate("/upcoming-event");
+      }
+    });
   };
   return (
     <div className="max-w-11/12 mx-auto my-16">
@@ -55,7 +47,6 @@ const UpdateEvent = () => {
               className="input w-full outline-2 outline-[#129ee7]"
               name="groupName"
               placeholder="Event Title"
-              defaultValue={groupName}
               required
             />
           </fieldset>
@@ -63,7 +54,7 @@ const UpdateEvent = () => {
             <label className="label">Event Type</label>
             <select
               name="category"
-              defaultValue={category}
+              defaultValue="Pick a browser"
               className="select w-full outline-2 outline-[#129ee7]"
               required
             >
@@ -85,7 +76,6 @@ const UpdateEvent = () => {
               className="input w-full outline-2 outline-[#129ee7]"
               name="Description"
               placeholder="Description"
-              defaultValue={Description}
               required
             />
           </fieldset>
@@ -96,7 +86,6 @@ const UpdateEvent = () => {
               className="input w-full outline-2 outline-[#129ee7]"
               name="location"
               placeholder="Location"
-              defaultValue={location}
               required
             />
           </fieldset>
@@ -117,7 +106,6 @@ const UpdateEvent = () => {
               className="input w-full outline-2 outline-[#129ee7]"
               name="photo"
               placeholder="Image Url"
-              defaultValue={photo}
               required
             />
           </fieldset>
@@ -150,11 +138,13 @@ const UpdateEvent = () => {
         <button className="relative inline-block px-4 py-2 font-medium group w-full mt-5">
           <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#129ee7] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
           <span className="absolute inset-0 w-full h-full bg-[#129ee7] border-2 border-[#129ee7] group-hover:bg-[#129ee7]"></span>
-          <span className="relative text-white">Update Event</span>
+          <span className="relative text-white">
+            Create Event
+          </span>
         </button>
       </form>
     </div>
   );
 };
 
-export default UpdateEvent;
+export default CreateEvent;

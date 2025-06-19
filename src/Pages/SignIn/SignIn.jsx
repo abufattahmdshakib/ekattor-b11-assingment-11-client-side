@@ -1,140 +1,138 @@
-import React, { use, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../Context/AuthContext";
-import Swal from "sweetalert2";
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
+import { FcGoogle } from "react-icons/fc";
+import Swal from 'sweetalert2';
+import { FaEye } from "react-icons/fa";
+import { useState } from 'react';
+import { FaEyeSlash } from "react-icons/fa";
 
-const SignIn = () => {
-  const { signInUser, signInWithGoogle } = use(AuthContext);
-  const [erroMesseage, setErrorMessage] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    console.log({ email, password });
 
-    setErrorMessage("");
+const SingIn = () => {
+    const { user, login, handleWithGoogle, resetPassword } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [showPass, setShowpass] = useState(false);
 
-    signInUser(email, password)
-      .then((result) => {
-        console.log(result);
-        navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage(error.message);
-      });
-  };
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const handleSignInWithGoogle = () => {
-    signInWithGoogle()
-      .then((result) => {
-        console.log(result);
-        // fetch("https://uddog-server.vercel.app/users", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(provider),
-        // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     if (data.insertedId) {
-        //       Swal.fire({
-        //         title: "Account Created Successfully!",
-        //         icon: "success",
-        //         draggable: true,
-        //       });
-        //     }
-        //   });
-        navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
 
-  return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">Login now!</h1>
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        if (!passwordRegex.test(password)) {
+            Swal.fire({
+                icon: "error",
+                title: "Weak Password",
+                text: "Password must be at least 6 characters long and contain both uppercase and lowercase letters."
+            });
+            return;
+        }
+
+        login(email, password)
+            .then((result) => {
+                showSuccessAlert();
+                navigate("/");
+                console.log(result.user);
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: error.message,
+                });
+            });
+    };
+
+    const handleForgotPassword = () => {
+        const email = document.querySelector("input[name='email']").value;
+
+        if (!email) {
+            Swal.fire({
+                icon: "warning",
+                title: "Enter Email",
+                text: "Please enter your email to reset password.",
+            });
+            return;
+        }
+
+        resetPassword(email)
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Email Sent",
+                    text: "Check your inbox for the password reset link.",
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Something Went Wrong",
+                    text: error.message,
+                });
+            });
+    };
+
+    const showSuccessAlert = () => {
+        Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Logged in Successfully",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    };
+
+    return (
+        <div className="hero bg-base-100">
+           
+
+            <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
+                <div className="card-body">
+                    <h1 className='text-2xl font-bold text-center text-blue-950'>Login to Your Account</h1>
+                    <form onSubmit={handleLogin}>
+                        <fieldset className="fieldset">
+                            <label className="label text-blue-950 font-bold">Email Address</label>
+                            <input name='email' type="email" className="input" placeholder="Enter your email address" required />
+                            <label className="label text-blue-950 font-bold">Password</label>
+                            <div className='relative'>
+                                <input name='password' type={showPass ? "text" : "password"} className="input" placeholder="Enter your password" required />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowpass(!showPass)}
+                                    className='absolute top-[14px] right-6'>
+                                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+                            <div>
+                                <span onClick={handleForgotPassword} className="link link-hover text-blue-950 font-bold cursor-pointer">
+                                    Forgot password?
+                                </span>
+                            </div>
+                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">Login</button>
+                        </fieldset>
+                    </form>
+                    <div className="divider divider-neutral font-bold text-blue-950">OR</div>
+                    <button onClick={handleWithGoogle} className="btn text-blue-950 bg-gray-300">
+                        <FcGoogle className='text-xl' />Login with Google
+                    </button>
+                    <p className='mt-5 text-blue-950 font-bold'>
+                        Don’t have an account?{" "}
+                        <span className='text-red-600 font-medium hover:underline'>
+                            <Link to='/auth/signUp'>Register</Link>
+                        </span>
+                    </p>
+                </div>
             </div>
-            <form onSubmit={handleSignIn} className="fieldset">
-              <label className="label">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="input"
-                placeholder="Email"
-              />
-              <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Password"
-              />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-                {erroMesseage && <p className="text-red-400">{erroMesseage}</p>}
-              </div>
-              <button className="relative inline-block px-4 py-2 font-medium group">
-            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#129ee7] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-            <span className="absolute inset-0 w-full h-full bg-white border-2 border-[#129ee7] group-hover:bg-[#129ee7]"></span>
-            <span className="relative text-black group-hover:text-white">
-              Sign In
-            </span>
-          </button>
-              {/* Google */}
-              <button
-                type="button"
-                onClick={handleSignInWithGoogle}
-                className="btn bg-white text-black border-[#e5e5e5]"
-              >
-                <svg
-                  aria-label="Google logo"
-                  width="16"
-                  height="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <g>
-                    <path d="m0 0H512V512H0" fill="#fff"></path>
-                    <path
-                      fill="#34a853"
-                      d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                    ></path>
-                    <path
-                      fill="#4285f4"
-                      d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                    ></path>
-                    <path
-                      fill="#fbbc02"
-                      d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                    ></path>
-                    <path
-                      fill="#ea4335"
-                      d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                    ></path>
-                  </g>
-                </svg>
-                Login with Google
-              </button>
-            </form>
-            <button>
-              Do You have an Account?
-              <Link to="/auth/signUp">Register</Link>
-            </button>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default SignIn;
+export default SingIn;

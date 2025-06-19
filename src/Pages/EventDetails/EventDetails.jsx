@@ -1,8 +1,8 @@
 import React, { use, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/UseAxiosSecure";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const EventDetails = () => {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -30,7 +30,7 @@ const EventDetails = () => {
     eventDetails;
 
   const handleJoinEvent = () => {
-    fetch("https://uddog-server.vercel.app/join-user", {
+    fetch("http://localhost:3000/join-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

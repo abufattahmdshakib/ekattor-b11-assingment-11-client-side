@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Context/AuthContext";
 import ManageEventCard from "../ManageEventCard/ManageEventCard";
 // import axios from "axios";
 import useAxiosSecure from "../Hooks/UseAxiosSecure";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const ManageEvent = () => {
   const { user } = useContext(AuthContext);

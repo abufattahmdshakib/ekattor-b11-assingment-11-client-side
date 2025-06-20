@@ -98,7 +98,7 @@ const NavBar = () => {
           <p className="hidden lg:flex">
             <img
               className="w-12 h-12 rounded-xl mr-2 text-green-800"
-              src="../../../public/assets/elegant-green-letter-e-logo-vector-26347243.jpg"
+              src="https://i.ibb.co/Z690td5v/elegant-green-letter-e-logo-vector-26347243.jpg"
               alt=""
             />
           </p>

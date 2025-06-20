@@ -38,7 +38,7 @@ const Footer = () => {
           <p className="flex">
             <img
               className="w-12 h-12 mr-2 rounded-xl"
-              src="../../../public/assets/elegant-green-letter-e-logo-vector-26347243.jpg"
+              src="https://i.ibb.co/Z690td5v/elegant-green-letter-e-logo-vector-26347243.jpg"
               alt=""
             />
           </p>

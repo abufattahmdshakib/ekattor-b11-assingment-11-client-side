@@ -13,7 +13,7 @@ const SingIn = () => {
     const navigate = useNavigate();
     const [showPass, setShowpass] = useState(false);
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
     useEffect(() => {
         if (user) {
@@ -91,12 +91,12 @@ const SingIn = () => {
     };
 
     return (
-        <div className="hero bg-base-100">
+        <div className="hero bg-base-100 my-16">
            
 
             <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
-                    <h1 className='text-2xl font-bold text-center text-blue-950'>Login to Your Account</h1>
+                    <h1 className='text-2xl font-bold text-center text-blue-950'>SignIn to Your Account</h1>
                     <form onSubmit={handleLogin}>
                         <fieldset className="fieldset">
                             <label className="label text-blue-950 font-bold">Email Address</label>
@@ -116,17 +116,17 @@ const SingIn = () => {
                                     Forgot password?
                                 </span>
                             </div>
-                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">Login</button>
+                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">SignIn</button>
                         </fieldset>
                     </form>
                     <div className="divider divider-neutral font-bold text-blue-950">OR</div>
                     <button onClick={handleWithGoogle} className="btn text-blue-950 bg-gray-300">
-                        <FcGoogle className='text-xl' />Login with Google
+                        <FcGoogle className='text-xl' />SignIn with Google
                     </button>
                     <p className='mt-5 text-blue-950 font-bold'>
                         Don’t have an account?{" "}
                         <span className='text-red-600 font-medium hover:underline'>
-                            <Link to='/auth/signUp'>Register</Link>
+                            <Link to='/auth/signUp'>SignUp</Link>
                         </span>
                     </p>
                 </div>

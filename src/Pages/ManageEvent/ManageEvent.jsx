@@ -3,6 +3,7 @@ import ManageEventCard from "../ManageEventCard/ManageEventCard";
 // import axios from "axios";
 import useAxiosSecure from "../Hooks/UseAxiosSecure";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const ManageEvent = () => {
   const { user } = useContext(AuthContext);
@@ -26,7 +27,10 @@ const ManageEvent = () => {
 
   return (
     <div className="p-5 my-16">
-      <h2 className="text-[#129ee7] text-center pb-5 font-bold text-5xl">
+      <Helmet>
+        <title>Ekattor | ManageEvent</title>
+      </Helmet>
+      <h2 className="text-green-800 text-center pb-5 font-bold text-5xl">
         Manage Event
       </h2>
       {manageEvent.length === 0 ? (

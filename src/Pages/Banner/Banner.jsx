@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Banner = () => {
   return (
     <div
-      className="hero min-h-screen rounded-2xl"
+      className="hero min-h-screen mt-10 rounded-2xl"
       style={{
         backgroundImage: "url('/assets/bg.jpg')",
       }}
@@ -19,8 +19,8 @@ const Banner = () => {
           </p>
           <Link to="/upcoming-event">
             <button className="relative inline-block px-4 py-2 font-medium group">
-            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#129ee7] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-            <span className="absolute inset-0 w-full h-full bg-white border-2 border-[#129ee7] group-hover:bg-[#129ee7]"></span>
+            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-green-800 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+            <span className="absolute inset-0 w-full h-full bg-white border-2 border-green-800 group-hover:bg-green-800"></span>
             <span className="relative text-black group-hover:text-white">
               Explore Event
             </span>

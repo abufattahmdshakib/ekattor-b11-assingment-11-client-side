@@ -20,7 +20,7 @@ const SingUp = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         if (!passwordRegex.test(password)) {
             Swal.fire({
                 icon: 'error',
@@ -65,11 +65,11 @@ const SingUp = () => {
         });
     };
     return (
-        <div className="hero bg-base-100">
+        <div className="hero bg-base-100 my-16">
             
             <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
-                    <h1 className='text-2xl text-blue-950 font-bold text-center'>Register your account</h1>
+                    <h1 className='text-2xl text-blue-950 font-bold text-center'>SingUp your account</h1>
                     <form onSubmit={handleRegister}>
                         <fieldset className="fieldset">
                             <label className="label text-blue-950 font-bold">Your Name</label>
@@ -89,9 +89,9 @@ const SingUp = () => {
                                 </button>
                             </div>
                             <div className='mt-3'><input type="checkbox" className="checkbox checkbox-xs text-blue-950 font-bold" required /> <a className="link link-hover ml-1 text-blue-950 font-bold">Accept Term & Conditions</a></div>
-                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">Register</button>
+                            <button type='submit' className="btn btn-neutral mt-4 bg-blue-950">SingUp</button>
                         </fieldset>
-                        <p className='mt-5 text-blue-950 font-bold'>Allready Have An Account ?<span className='text-red-600 font-medium hover:underline'><Link to='/auth/signIn'>Login</Link></span></p>
+                        <p className='mt-5 text-blue-950 font-bold'>Allready Have An Account ?<span className='text-red-600 font-medium hover:underline'><Link to='/auth/signIn'>SignIn</Link></span></p>
                     </form>
                 </div>
             </div>

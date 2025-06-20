@@ -32,19 +32,19 @@ const Footer = () => {
     </>
   );
   return (
-    <footer className="footer footer-horizontal footer-center bg-[#129ee7] text-primary-content p-10">
+    <footer className="footer footer-horizontal footer-center bg-green-800 text-primary-content p-10">
       <aside>
         <div className="flex items-center">
           <p className="flex">
             <img
-              className="w-12 h-12"
-              src="/assets/logo_footer.png"
+              className="w-12 h-12 mr-2 rounded-xl"
+              src="../../../public/assets/elegant-green-letter-e-logo-vector-26347243.jpg"
               alt=""
             />
           </p>
 
           <a className="text-base lg:text-4xl text-white font-medium lg:font-extrabold">
-            Ekattor
+            Ekattor 
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">

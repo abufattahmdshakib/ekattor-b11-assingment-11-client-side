@@ -1,12 +1,99 @@
-# React + Vite
+# Ekattor - Social Development Events Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A community-driven platform where users can create, join, and track social service events such as road cleaning, tree plantation, and donation drives.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Links
 
-## Expanding the ESLint configuration
+ Live Site: [your-firebase-link]( https://my-ekattor-web.web.app)
+ Client Repo: [GitHub](https://github.com/Programming-Hero-Web-Course4/b11a11-client-side-abufattahmdshakib)
+ Server Repo: [GitHub](https://github.com/Programming-Hero-Web-Course4/b11a11-server-side-abufattahmdshakib)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Project Goal
+
+Empower local communities by simplifying the process of organizing and participating in impactful social events.
+
+---
+
+## Technologies Used
+
+### Client
+- React, React Router DOM
+- Firebase Auth
+- JWT Token (jsonwebtoken)
+- Tailwind CSS / DaisyUI
+- React Toastify
+- React Datepicker
+- Framer Motion (optional)
+- Axios
+- Environment Variables
+
+### Server
+- Node.js, Express.js
+- MongoDB
+- CORS
+- dotenv
+- JWT (jsonwebtoken)
+
+---
+
+## Features at a Glance
+
+### Authentication
+- Email/Password & Google or GitHub Login
+- JWT-based secure protected routes
+- Toast notifications after login/register
+- Redirect handling after login
+- Auth validation on reload
+
+### Event Management
+- Create Event (with validation and future date only)
+- Filter Events by Type
+- Search Events by Name
+- View Event Details (private route)
+- Join Event functionality
+- Show Joined Events (sorted by date)
+- Manage own Events (Update/Delete)
+
+### Validations
+- Password must have uppercase, lowercase, and 6+ characters
+- Date must be future date
+- All fields in forms are required
+
+---
+
+## Pages Overview
+
+| Page | Type | Description |
+|------|------|-------------|
+| Home | Public | Banner, Features, Gallery, Newsletter |
+| Upcoming Events | Public | Filter + Search + Cards |
+| Event Details | Private | Info + Join button |
+| Create Event | Private | Add event with validations |
+| Joined Events | Private | Show events user has joined |
+| Manage Events | Private | Update/Delete own events |
+
+---
+
+## UI & Design
+
+- Fully responsive (Mobile, Tablet, Desktop)
+- Eye-friendly spacing, alignment, contrast
+- Dark/Light theme toggle
+- Modern UI with Tailwind/DaisyUI
+- Spinner on loading (optional)
+- Animations via Framer Motion (optional)
+
+---
+
+## Advanced Features (Challenge Completed ✅)
+
+- ✅ Form validation on all inputs
+- ✅ Filter by event type using MongoDB queries
+- ✅ Search event by name (case-insensitive)
+- ✅ JWT secured routes and API calls
+- ✅ Pagination on Upcoming Events (optional)
+- ✅ Theme toggle system

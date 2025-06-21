@@ -20,7 +20,7 @@ const UpdateEvent = () => {
     const formData = new FormData(form);
     const groupData = Object.fromEntries(formData.entries());
     console.log(groupData);
-    fetch(`http://localhost:3000/event-Data/${_id}`, {
+    fetch(`https://ekattor-server-side.vercel.app/event-Data/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

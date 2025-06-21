@@ -5,7 +5,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
 const JoinedEvent = () => {
-  // fetch("http://localhost:3000/join-user")
+  // fetch("https://ekattor-server-side.vercel.app/join-user")
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [joinedEvent, setJoinedEvent] = useState([]);

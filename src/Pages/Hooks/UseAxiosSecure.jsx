@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 // import { AuthContext } from "../../Context/AuthContext";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://ekattor-server-side.vercel.app/",
 });
 
 const useAxiosSecure = () => {

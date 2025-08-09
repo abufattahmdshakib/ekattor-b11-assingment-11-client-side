@@ -15,6 +15,7 @@ import EventDetails from "../Pages/EventDetails/EventDetails";
 import UpdateEvent from "../Pages/UpdateEvent/UpdateEvent";
 import Contact from "../Pages/Contact/Contact";
 import Loading from "../Pages/Loading/Loading";
+import PastEvents from "../Components/PastMainPage/PastEvents";
 
 export const router = createBrowserRouter([
   {
@@ -26,11 +27,16 @@ export const router = createBrowserRouter([
       {
         path: "/upcoming-event",
         Component: UpcomingEvent,
-        loader: () => fetch("https://ekattor-server-side.vercel.app/event-Data/upcoming"),
+        loader: () => fetch("http://localhost:3000/event-Data/upcoming"),
       },
       {
         path: "/contact",
         Component: Contact,
+      },
+      // ==== নতুন পাস্ট ইভেন্ট রুট =====
+      {
+        path: "/past-event",
+        Component: PastEvents,
       },
       {
         path: "/event-details/:id",
@@ -64,7 +70,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://ekattor-server-side.vercel.app/event-Data/${params.id}`),
+          fetch(`http://localhost:3000/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>
       },
       {

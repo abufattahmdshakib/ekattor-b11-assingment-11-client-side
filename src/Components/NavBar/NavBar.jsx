@@ -2,7 +2,6 @@ import React, { use, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../Pages/Provider/AuthProvider";
-// import { AuthContext } from "../../Context/AuthContext";
 
 const NavBar = () => {
   const [theme, setTheme] = useState(

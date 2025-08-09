@@ -7,8 +7,8 @@ const NewsLetter = () => {
         <img src="/assets/newsletter-icon.png" alt="" />
       </div>
       <div className="space-y-3">
-        <h1 className="text-5xl font-bold text-green-800">Subscribe to our Newsletter</h1>
-        <h3 className="text-xl font-medium">
+        <h1 className="text-2xl font-bold text-green-800">Subscribe to our Newsletter</h1>
+        <h3>
           Get the latest on upcoming events, volunteer drives, and community success stories.
         </h3>
         <form>

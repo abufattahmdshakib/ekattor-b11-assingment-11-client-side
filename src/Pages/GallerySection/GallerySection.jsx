@@ -3,9 +3,10 @@ import React from "react";
 const GallerySection = () => {
   return (
     <div className="shadow-2xl mt-16 rounded-2xl">
-      <h1 className="text-5xl font-bold text-green-800 text-center pb-7">
-        Gallery
+      <h1 className="text-2xl font-bold text-green-800 text-center">
+        Community Gallery & Snapshots
       </h1>
+      <p className="text-center mb-8">Discover and relive memorable moments captured during our vibrant community gatherings and events.</p>
       <div className="flex sm:flex-row flex-col justify-center gap-5">
         <div className="space-y-5">
           <div>

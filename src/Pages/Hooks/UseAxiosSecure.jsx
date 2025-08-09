@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-// import { AuthContext } from "../../Context/AuthContext";
 
 const axiosInstance = axios.create({
   baseURL: "https://ekattor-server-side.vercel.app/",

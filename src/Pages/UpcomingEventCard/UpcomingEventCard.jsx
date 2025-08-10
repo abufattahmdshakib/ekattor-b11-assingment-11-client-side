@@ -6,8 +6,8 @@ const UpcomingEventCard = ({ eventData }) => {
     eventData;
   return (
     <div className="card bg-base-100 shadow-sm">
-      <figure>
-        <img src={photo} alt={groupName} />
+      <figure className="object-cover ">
+        <img className="w-full" src={photo} alt={groupName} />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{groupName}</h2>

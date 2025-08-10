@@ -7,7 +7,7 @@ const EventCard = ({ event, onClick = () => {} }) => {
 
   return (
     <div
-      className="border rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition"
+      className=" border rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition"
       onClick={() => onClick(event)}
     >
       {imageSrc && (
@@ -18,7 +18,7 @@ const EventCard = ({ event, onClick = () => {} }) => {
         />
       )}
       <div className="p-4">
-        <h3 className="text-xl font-semibold">{event.groupName}</h3>
+        <h3 className="text-xl  font-semibold">{event.groupName}</h3>
         <div className="flex items-center mt-2 text-green-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"

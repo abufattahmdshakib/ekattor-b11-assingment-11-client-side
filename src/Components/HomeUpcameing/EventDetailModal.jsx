@@ -7,7 +7,7 @@ const EventDetailModal = ({ event, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-lg w-full p-6 relative"
+        className="bg-white text-black rounded-lg max-w-lg w-full p-6 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -16,20 +16,20 @@ const EventDetailModal = ({ event, onClose }) => {
         >
           &#x2715;
         </button>
-        <h2 className="text-2xl font-bold mb-4">{event.groupName}</h2>
+        <h2 className="text-2xl text-black font-bold mb-4">{event.groupName}</h2>
         <img
           src={event.photo}
           alt={event.groupName}
           className="w-full h-64 object-cover mb-4 rounded"
         />
-        <p><strong>Category: </strong>{event.category}</p>
-        <p><strong>Description: </strong>{event.description || event.Description}</p>
-        <p><strong>Location: </strong>{event.location}</p>
-        <p>
+        <p className="text-black"><strong>Category: </strong>{event.category}</p>
+        <p className="text-black"><strong>Description: </strong>{event.description || event.Description}</p>
+        <p className="text-black"><strong>Location: </strong>{event.location}</p>
+        <p className="text-black">
           <strong>Date: </strong>
           {new Date(event.date).toLocaleDateString()}
         </p>
-        <p><strong>Organizer: </strong>{event.organizer || event.name} ({event.contact || event.email})</p>
+        <p className="text-black"><strong>Organizer: </strong>{event.organizer || event.name} ({event.contact || event.email})</p>
       </div>
     </div>
   );

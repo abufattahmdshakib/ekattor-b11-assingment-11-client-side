@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import EventCard from "./EventCard";
 
 const PastEvents = () => {
@@ -11,7 +10,7 @@ const PastEvents = () => {
         fetch("http://localhost:3000/event-Data/past")
             .then((res) => res.json())
             .then((data) => {
-                setEvents(data.slice(0, 3));
+                setEvents(data.slice(0, 4));
                 setLoading(false);
             })
             .catch((err) => {
@@ -20,16 +19,31 @@ const PastEvents = () => {
             });
     }, []);
 
-    if (loading) return <p>Loading past events...</p>;
+    // Prevent background scroll when modal is open
+    useEffect(() => {
+        if (selectedEvent) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [selectedEvent]);
 
+    if (loading) return <p>Loading past events...</p>;
     if (!events.length) return <p>No past events found.</p>;
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold  text-center text-green-800">Recently held community events and initiatives</h2>
-            <p className="text-center mb-8">Take a closer look at the community events and initiatives that we have recently undertaken to make a positive impact.</p>
+            <h2 className="text-2xl font-bold text-center text-green-800">
+                Recently held community events and initiatives
+            </h2>
+            <p className="text-center mb-8">
+                Take a closer look at the community events and initiatives that we have recently undertaken to make a positive impact.
+            </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 {events.map((event) => (
                     <EventCard key={event._id} event={event} onClick={setSelectedEvent} />
                 ))}
@@ -37,7 +51,7 @@ const PastEvents = () => {
 
             {selectedEvent && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4"
+                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50"
                     onClick={() => setSelectedEvent(null)}
                 >
                     <div
@@ -72,4 +86,3 @@ const PastEvents = () => {
 };
 
 export default PastEvents;
-

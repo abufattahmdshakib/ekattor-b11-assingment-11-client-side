@@ -21,19 +21,26 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: HomeLayout,
-    errorElement: <Error></Error>,
+    errorElement: <Error />,
     children: [
       { index: true, Component: Home },
       {
         path: "/upcoming-event",
         Component: UpcomingEvent,
-        loader: () => fetch("http://localhost:3000/event-Data/upcoming"),
-      },
+        loader: async () => {
+          const res = await fetch("http://localhost:3000/event-Data/upcoming");
+          if (!res.ok) {
+            throw new Response("Failed to fetch upcoming events", { status: res.status });
+          }
+          return res.json();
+        },
+        hydrateFallbackElement: <Loading />,  // Hydrate fallback UI
+      }
+      ,
       {
         path: "/contact",
         Component: Contact,
       },
-      // ==== নতুন পাস্ট ইভেন্ট রুট =====
       {
         path: "/past-event",
         Component: PastEvents,
@@ -42,7 +49,7 @@ export const router = createBrowserRouter([
         path: "/event-details/:id",
         element: (
           <PrivateRoute>
-            <EventDetails></EventDetails>
+            <EventDetails />
           </PrivateRoute>
         ),
       },
@@ -50,7 +57,7 @@ export const router = createBrowserRouter([
         path: "/create-event",
         element: (
           <PrivateRoute>
-            <CreateEvent></CreateEvent>
+            <CreateEvent />
           </PrivateRoute>
         ),
       },
@@ -58,7 +65,7 @@ export const router = createBrowserRouter([
         path: "/manage-event",
         element: (
           <PrivateRoute>
-            <ManageEvent></ManageEvent>
+            <ManageEvent />
           </PrivateRoute>
         ),
       },
@@ -70,14 +77,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/${params.id}`),
-        hydrateFallbackElement: <Loading></Loading>
+          fetch(`http://localhost:3000/${params.id}`).then((res) => res.json()),
+        hydrateFallbackElement: <Loading />,
       },
       {
         path: "/joined-event",
         element: (
           <PrivateRoute>
-            <JoinedEvent></JoinedEvent>
+            <JoinedEvent />
           </PrivateRoute>
         ),
       },

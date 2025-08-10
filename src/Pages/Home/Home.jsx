@@ -15,6 +15,7 @@ import RoadSafetyEducation from '../../Components/HomeUpcameing/RoadSafetyEducat
 import SanitationHygieneDrives from '../../Components/HomeUpcameing/SanitationHygieneDrives';
 import HealthCamps from '../../Components/HomeUpcameing/HealthCamps';
 import SelfEmploymentWorkshops from '../../Components/HomeUpcameing/SelfEmploymentWorkshops';
+import ExtraSectionsTow from '../countup/ExtraSectionsTow';
 
 const Home = () => {
     return (
@@ -36,6 +37,9 @@ const Home = () => {
             <div className="my-8"><SanitationHygieneDrives /></div>
             <div className="my-8"><HealthCamps /></div>
             <div className="my-8"><SelfEmploymentWorkshops /></div>
+
+
+            <div className="my-8"><ExtraSectionsTow /></div>
             <div className="my-8"><NewsLetter /></div>
         </div>
     );

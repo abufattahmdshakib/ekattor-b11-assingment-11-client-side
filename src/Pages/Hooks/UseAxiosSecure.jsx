@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://ekattor-server-side.vercel.app/",
   // baseURL: "https://ekattor-server-side.vercel.app/",
 });
 

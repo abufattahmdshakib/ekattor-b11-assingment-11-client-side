@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
         path: "/upcoming-event",
         Component: UpcomingEvent,
         loader: async () => {
-          const res = await fetch("http://localhost:3000/event-Data/upcoming");
+          const res = await fetch("https://ekattor-server-side.vercel.app/event-Data/upcoming");
           if (!res.ok) {
             throw new Response("Failed to fetch upcoming events", { status: res.status });
           }
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/${params.id}`).then((res) => res.json()),
+          fetch(`https://ekattor-server-side.vercel.app/${params.id}`).then((res) => res.json()),
         hydrateFallbackElement: <Loading />,
       },
       {

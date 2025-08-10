@@ -4,7 +4,7 @@ import EventsSection from '../HomeUpcameing/EventSection'
 function PastEvents() {
   return (
     <EventsSection 
-    api='http://localhost:3000/event-Data/past'
+    api='https://ekattor-server-side.vercel.app/event-Data/past'
     hasFilter= {false}
     sectionName={"past events"}
     title={"Recently held community events and initiatives"}

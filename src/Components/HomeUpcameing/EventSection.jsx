@@ -7,7 +7,7 @@ export default function EventsSection  ({
     sectionName,
     title,
     subTitle,
-    api = "http://localhost:3000/event-Data/upcoming",
+    api = "https://ekattor-server-side.vercel.app/event-Data/upcoming",
 }) {
 
 

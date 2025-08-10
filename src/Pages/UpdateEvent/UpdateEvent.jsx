@@ -51,7 +51,7 @@ const UpdateEvent = () => {
     // Replace photo with hosted URL
     groupData.photo = imgUrl;
 
-    fetch(`http://localhost:3000/${_id}`, {
+    fetch(`https://ekattor-server-side.vercel.app/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

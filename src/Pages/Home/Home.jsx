@@ -26,8 +26,7 @@ const Home = () => {
             <div className="my-8"><FeaturedSection /></div>
             <div className="my-8"><GallerySection /></div>
             <div className="my-8"><PastEvents /></div>
-            <div className="my-8"><NewsLetter /></div>
-
+            
             {/* ৮টা ক্যাটাগরি সেকশন */}
             <div className="my-8"><CleanUpDrives /></div>
             <div className="my-8"><TreePlantationDrives /></div>
@@ -37,6 +36,7 @@ const Home = () => {
             <div className="my-8"><SanitationHygieneDrives /></div>
             <div className="my-8"><HealthCamps /></div>
             <div className="my-8"><SelfEmploymentWorkshops /></div>
+            <div className="my-8"><NewsLetter /></div>
         </div>
     );
 };

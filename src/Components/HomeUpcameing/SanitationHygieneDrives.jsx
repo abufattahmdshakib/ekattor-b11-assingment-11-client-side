@@ -1,37 +1,15 @@
-import React, { useEffect, useState } from "react";
-import EventSection from "./EventSection";
+import React from 'react'
+import EventsSection from './EventSection'
 
-const category = "Sanitation and hygiene awareness drives";
-const subtitle = "Healthy habits for a better life";
-
-const SanitationHygieneDrives = ({ onEventClick }) => {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/event-Data/upcoming")
-      .then(res => res.json())
-      .then(data => {
-        setEvents(data.filter(e => e.category === category));
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p>Loading {category}...</p>;
-  if (!events.length) return <p>No upcoming {category} events found.</p>;
-
+function SanitationHygieneDrives() {
   return (
-    <EventSection
-      category={category}
-      subtitle={subtitle}
-      events={events}
-      onClick={onEventClick}
+    <EventsSection 
+    title={"Sanitation and hygiene awareness drives"}
+    subTitle={"Healthy habits for a better life"}
+    filterCategory={ "Sanitation and hygiene awareness drives"}
+    
     />
-  );
-};
+  )
+}
 
-export default SanitationHygieneDrives;
+export default SanitationHygieneDrives

@@ -19,7 +19,7 @@ const ManageEventCard = ({ events, manageEvent, setManageEvent }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`events/${_id}`)
+          .delete(`/event-Data/${_id}`)
           .then((data) => {
             if (data.data.deletedCount) {
               const remainingEvent = manageEvent.filter(

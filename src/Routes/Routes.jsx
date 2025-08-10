@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://ekattor-server-side.vercel.app/${params.id}`).then((res) => res.json()),
+          fetch(`https://ekattor-server-side.vercel.app/event-Data/${params.id}`).then(res => res.json()),
         hydrateFallbackElement: <Loading />,
       },
       {

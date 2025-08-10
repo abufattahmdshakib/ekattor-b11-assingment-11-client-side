@@ -1,12 +1,11 @@
 import React from "react";
-import { Link, useParams } from "react-router";
+import { Link } from "react-router-dom";  // react-router থেকে Link নিতে হবে
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/UseAxiosSecure";
 
 const ManageEventCard = ({ events, manageEvent, setManageEvent }) => {
   const { _id, groupName, photo, category } = events;
   const axiosSecure = useAxiosSecure();
-  const { id } = useParams();
 
   const handleDelete = (_id) => {
     Swal.fire({
@@ -19,20 +18,24 @@ const ManageEventCard = ({ events, manageEvent, setManageEvent }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`event-Data/${_id}`).then((data) => {
-          console.log(data.data);
-          if (data.data.deletedCount) {
-            const remainingEvent = manageEvent.filter(
-              (event) => event._id !== _id
-            );
-            setManageEvent(remainingEvent);
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your event has been deleted.",
-              icon: "success",
-            });
-          }
-        });
+        axiosSecure
+          .delete(`events/${_id}`)
+          .then((data) => {
+            if (data.data.deletedCount) {
+              const remainingEvent = manageEvent.filter(
+                (event) => event._id !== _id
+              );
+              setManageEvent(remainingEvent);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your event has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch(() => {
+            Swal.fire("Error", "Failed to delete event.", "error");
+          });
       }
     });
   };
@@ -45,22 +48,21 @@ const ManageEventCard = ({ events, manageEvent, setManageEvent }) => {
       <div className="card-body">
         <h2 className="card-title">{groupName}</h2>
         <p>{category}</p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end space-x-2">
           <Link className="w-full" to={`/update-event/${_id}`}>
             <button className="relative w-full inline-block px-4 py-2 font-medium group">
-            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-green-800 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-            <span className="absolute inset-0 w-full h-full bg-white border-2 border-green-800 group-hover:bg-green-800"></span>
-            <span className="relative text-black group-hover:text-white">
-              Update
-            </span>
-          </button>
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-green-800 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute inset-0 w-full h-full bg-white border-2 border-green-800 group-hover:bg-green-800"></span>
+              <span className="relative text-black group-hover:text-white">Update</span>
+            </button>
           </Link>
-          <button onClick={() => handleDelete(_id)} className="relative w-full inline-block px-4 py-2 font-medium group">
+          <button
+            onClick={() => handleDelete(_id)}
+            className="relative w-full inline-block px-4 py-2 font-medium group"
+          >
             <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-green-800 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
             <span className="absolute inset-0 w-full h-full bg-white border-2 border-green-800 group-hover:bg-green-800"></span>
-            <span className="relative text-black group-hover:text-white">
-              Delete
-            </span>
+            <span className="relative text-black group-hover:text-white">Delete</span>
           </button>
         </div>
       </div>
